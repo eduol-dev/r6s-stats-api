@@ -39,7 +39,9 @@ module.exports = async function (url) {
     result.push(rank[0]);
 
     for (var i = 0; i < profile.length; i++) {
-        if (profile[i].indexOf('Ranked') !== -1) result.push(profile[i]);
+        if (profile[i].indexOf('Ranked') !== -1) {
+            result.push(profile[i]);
+        }
     }
 
     //console.log(profile);

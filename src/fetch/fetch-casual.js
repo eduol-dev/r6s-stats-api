@@ -5,7 +5,7 @@ const filterArray = require('./modules/filterarray');
 
 module.exports = async function (url) {
     let result = [];
-    let rank = [];
+    let casual = [];
     let profile = [];
 
     const data = await exec(url);
@@ -17,9 +17,7 @@ module.exports = async function (url) {
 
     const $ = cheerio.load(data);
 
-    $('#profile .r6-season__stats').each(function (i, elem) {
-        rank.push(filterArray($(this).text().split('\n')));
-    });
+    casual = filterArray($($('.r6-season')[1]).text().split('\n'));
 
     $('#profile .trn-card').each(function (i, elem) {
         profile.push(filterArray($(this).text().split('\n')));
@@ -36,7 +34,7 @@ module.exports = async function (url) {
         return result;
     }
 
-    result.push(rank[1]);
+    result.push(casual);
 
     for (var i = 0; i < profile.length; i++) {
         if (profile[i].indexOf('Unranked And Casual') !== -1) result.push(profile[i]);
