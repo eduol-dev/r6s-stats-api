@@ -210,4 +210,13 @@ module.exports = {
 
     return stats_operator;
   },
+
+  sessions: async function (platform, name) {
+    if (typeof platform !== 'string' || typeof name !== 'string') return 'FORMAT_ERROR';
+    if (!checkPlatform(platform.toLowerCase())) return 'PLATFORM_ERROR';
+
+    let url = `https://r6.tracker.network/profile/${platform.toLowerCase()}/${name}/mmr-history`;
+    let track = await Fetch.casual(url);
+
+  },
 };

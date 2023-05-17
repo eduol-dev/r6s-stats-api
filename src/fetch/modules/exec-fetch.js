@@ -13,7 +13,7 @@ module.exports = async function (url) {
             'cache-control': 'max-age=0',
             'User-Agent': agent()
         },
-        timeout: 5000,
+        timeout: 10000,
     })
         .catch((error) => { return error; });
 
