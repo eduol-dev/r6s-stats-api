@@ -70,6 +70,8 @@ module.exports = {
     let casual = track[1];
     let profile = track[2];
 
+    console.log(casual)
+
     if (typeof (profile) === 'undefined') throw new Error(API_ERROR);
 
     stats_casual.url = url;
