@@ -60,8 +60,7 @@ module.exports = {
   casual: async function (platform, name) {
     if (typeof platform !== 'string' || typeof name !== 'string') return 'FORMAT_ERROR';
     if (!checkPlatform(platform.toLowerCase())) return 'PLATFORM_ERROR';
-
-    let url = `https://r6.tracker.network/profile/${platform.toLowerCase()}/${name}/`;
+    let url = `https://r6s-proxy.vercel.app/api/handler?user=${name}&plat=${platform}`;
     let track = await Fetch.casual(url);
 
     if (track[0] === 'error') return 'NOT_FOUND';
