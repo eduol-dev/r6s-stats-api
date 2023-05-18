@@ -15,7 +15,7 @@ module.exports = async function (url) {
         return result;
     }
 
-    const $ = cheerio.load(data);
+    const $ = cheerio.load(data.body);
 
     $('#profile .r6-season__stats').each(function (i, elem) {
         rank.push(filterArray($(this).text().split('\n')));

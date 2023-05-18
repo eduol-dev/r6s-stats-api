@@ -9,13 +9,12 @@ module.exports = async function (url) {
     let profile = [];
 
     const data = await exec(url);
-
     if (!data) {
         result[0] = 'timeout';
         return result;
     }
 
-    const $ = cheerio.load(data);
+    const $ = cheerio.load(data.body);
 
     casual = filterArray($($('.r6-season')[1]).text().split('\n'));
 
