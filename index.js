@@ -70,8 +70,6 @@ module.exports = {
     let casual = track[1];
     let profile = track[2];
 
-    console.log(casual)
-
     if (typeof (profile) === 'undefined') throw new Error(API_ERROR);
 
     stats_casual.url = url;
@@ -212,12 +210,10 @@ module.exports = {
     return stats_operator;
   },
 
-  sessions: async function (platform, name) {
+  matches: async function (platform, name) {
     if (typeof platform !== 'string' || typeof name !== 'string') return 'FORMAT_ERROR';
     if (!checkPlatform(platform.toLowerCase())) return 'PLATFORM_ERROR';
-
-    let url = `https://r6.tracker.network/profile/${platform.toLowerCase()}/${name}/mmr-history`;
-    let track = await Fetch.casual(url);
-
+    let url = `https://r6s-proxy.vercel.app/api/handler?user=${name}&plat=${platform}&operation=matches`;
+    return await Fetch.matches(url);
   },
 };

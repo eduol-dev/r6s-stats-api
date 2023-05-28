@@ -85,4 +85,10 @@ declare async function operator(
     operator: string
 ): Promise<StatsOperator | 'FORMAT_ERROR' | 'PLATFORM_ERROR' | 'NOT_FOUND' | 'TIME_OUT' | 'OPERATOR_ERROR'>;
 
-export { general, casual, rank, deathmatch, operator };
+
+declare async function matches(
+    platform: string,
+    name: string
+): Promise<StatsOperator | 'FORMAT_ERROR' | 'PLATFORM_ERROR' | 'NOT_FOUND' | 'TIME_OUT' | 'OPERATOR_ERROR'>;
+
+export { general, casual, rank, deathmatch, operator, matches };
