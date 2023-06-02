@@ -16,7 +16,9 @@ module.exports = async function (url) {
 
     const $ = cheerio.load(data.body);
 
-    casual = filterArray($($('.r6-season')[1]).text().split('\n'));
+    $('#profile .r6-season').each(function (i, elem) {
+        casual.push(filterArray($(this).text().split('\n')));
+    });
 
     $('#profile .trn-card').each(function (i, elem) {
         profile.push(filterArray($(this).text().split('\n')));
@@ -33,15 +35,12 @@ module.exports = async function (url) {
         return result;
     }
 
-    result.push(casual);
-
-    for (var i = 0; i < profile.length; i++) {
-        if (profile[i].indexOf('Unranked And Casual') !== -1) result.push(profile[i]);
+    for (var i = 0; i < casual.length; i++) {
+        if (casual[i].indexOf('Casual') !== -1) {
+            result.push(casual[i]);
+            break;
+        }
     }
-
-    //console.log(rank);
-    //console.log('profile',profile);
-    //console.log('result',result);
 
     return result;
 };

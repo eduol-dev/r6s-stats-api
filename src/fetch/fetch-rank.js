@@ -17,7 +17,7 @@ module.exports = async function (url) {
 
     const $ = cheerio.load(data.body);
 
-    $('#profile .r6-season__stats').each(function (i, elem) {
+    $('#profile .r6-season').each(function (i, elem) {
         rank.push(filterArray($(this).text().split('\n')));
     });
 
@@ -36,16 +36,12 @@ module.exports = async function (url) {
         return result;
     }
 
-    result.push(rank[0]);
-
-    for (var i = 0; i < profile.length; i++) {
-        if (profile[i].indexOf('Ranked') !== -1) {
-            result.push(profile[i]);
+    for (var i = 0; i < rank.length; i++) {
+        if (rank[i].indexOf('Ranked') !== -1) {
+            result.push(rank[i]);
+            break;
         }
     }
-
-    //console.log(profile);
-    //console.log(result);
 
     return result;
 };

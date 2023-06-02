@@ -68,23 +68,36 @@ module.exports = {
 
     let header = track[0];
     let casual = track[1];
-    let profile = track[2];
-
-    if (typeof (profile) === 'undefined') throw new Error(API_ERROR);
 
     stats_casual.url = url;
     stats_casual.name = name;
     stats_casual.header = header;
 
-    stats_casual.kd = checkNumber(casual[casual.indexOf('K/D') + 1]);
-    stats_casual.kills = checkNumber(casual[casual.indexOf('Kills') + 1]);
-    stats_casual.deaths = checkNumber(casual[casual.indexOf('Deaths') + 1]);
-    stats_casual.win_ = checkNumber(casual[casual.indexOf('Win %') + 1]);
-    stats_casual.wins = checkNumber(casual[casual.indexOf('Wins') + 1]);
-    stats_casual.abandons = checkNumber(casual[casual.indexOf('Abandons') + 1])
-    stats_casual.losses = checkNumber(casual[casual.indexOf('Losses') + 1]);
-    stats_casual.matches = checkNumber(stats_casual.wins + stats_casual.losses + stats_casual.abandons);
-    stats_casual.kills_match = checkNumber(casual[casual.indexOf('Kills/Match') + 1])
+    if (casual) {
+
+      stats_casual.kd = checkNumber(casual[casual.indexOf('K/D') + 1]);
+      stats_casual.kills = checkNumber(casual[casual.indexOf('Kills') + 1]);
+      stats_casual.deaths = checkNumber(casual[casual.indexOf('Deaths') + 1]);
+      stats_casual.win_ = checkNumber(casual[casual.indexOf('Win %') + 1]);
+      stats_casual.wins = checkNumber(casual[casual.indexOf('Wins') + 1]);
+      stats_casual.abandons = checkNumber(casual[casual.indexOf('Abandons') + 1])
+      stats_casual.losses = checkNumber(casual[casual.indexOf('Losses') + 1]);
+      stats_casual.matches = checkNumber(stats_casual.wins + stats_casual.losses + stats_casual.abandons);
+      stats_casual.kills_match = checkNumber(casual[casual.indexOf('Kills/Match') + 1])
+    } else {
+      const new_stats = {
+        "kd": 0,
+        "kills": 0,
+        "deaths": 0,
+        "win_": 0,
+        "wins": 0,
+        "abandons": 0,
+        "losses": 0,
+        "matches": 0,
+        "kills_match": 0
+      };
+      stats_rank = { ...new_stats }
+    }
     return stats_casual;
   },
 
@@ -100,30 +113,43 @@ module.exports = {
 
     let header = track[0];
     let rank = track[1];
-    let profile = track[2];
-
-    if (typeof (profile) === 'undefined') throw new Error(API_ERROR);
 
     stats_rank.url = url;
     stats_rank.name = name;
     stats_rank.header = header;
 
-    stats_rank.kd = checkNumber(rank[rank.indexOf('K/D') + 1]);
-    stats_rank.kills = checkNumber(rank[rank.indexOf('Kills') + 1]);
-    stats_rank.deaths = checkNumber(rank[rank.indexOf('Deaths') + 1]);
-    stats_rank.win_ = checkNumber(rank[rank.indexOf('Win %') + 1]);
-    stats_rank.wins = checkNumber(rank[rank.indexOf('Wins') + 1]);
-    stats_rank.losses = checkNumber(rank[rank.indexOf('Losses') + 1]);
-    stats_rank.abandons = checkNumber(rank[rank.indexOf('Abandons') + 1])
+    if (rank) {
+      stats_rank.kd = checkNumber(rank[rank.indexOf('K/D') + 1]);
+      stats_rank.kills = checkNumber(rank[rank.indexOf('Kills') + 1]);
+      stats_rank.deaths = checkNumber(rank[rank.indexOf('Deaths') + 1]);
+      stats_rank.win_ = checkNumber(rank[rank.indexOf('Win %') + 1]);
+      stats_rank.wins = checkNumber(rank[rank.indexOf('Wins') + 1]);
+      stats_rank.losses = checkNumber(rank[rank.indexOf('Losses') + 1]);
+      stats_rank.abandons = checkNumber(rank[rank.indexOf('Abandons') + 1])
 
-    stats_rank.matches = checkNumber(stats_rank.wins + stats_rank.losses + stats_rank.abandons);
-    stats_rank.kills_match = checkNumber(rank[rank.indexOf('Kills/match') + 1]);
+      stats_rank.matches = checkNumber(stats_rank.wins + stats_rank.losses + stats_rank.abandons);
+      stats_rank.kills_match = checkNumber(rank[rank.indexOf('Kills/match') + 1]);
 
-    stats_rank.mmr = checkNumber(rank[rank.indexOf('Rank Points') + 1].replace(',', ''))
+      stats_rank.mmr = checkNumber(rank[rank.indexOf('Rank Points') + 1].replace(',', ''))
 
-    stats_rank.rank = typeof (rank?.indexOf('Rank')) === 'undefined' ? 'UNRANKED' : rank[rank.indexOf('Rank') + 1];
-    stats_rank.rank_img = rankImg(stats_rank.rank);
-
+      stats_rank.rank = typeof (rank?.indexOf('Rank')) === 'undefined' ? 'UNRANKED' : rank[rank.indexOf('Rank') + 1];
+      stats_rank.rank_img = rankImg(stats_rank.rank);
+    } else {
+      const new_stats = {
+        "kd": 0,
+        "kills": 0,
+        "deaths": 0,
+        "win_": 0,
+        "wins": 0,
+        "losses": 0,
+        "abandons": 0,
+        "matches": 0,
+        "kills_match": 0,
+        "mmr": 0,
+        "rank": "-"
+      };
+      stats_rank = { ...new_stats }
+    }
     return stats_rank;
   },
 
